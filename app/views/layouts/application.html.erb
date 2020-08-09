@@ -1,12 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Grim2</title>
+    <title>GRIMM</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="/"><%= Settings.title.name %></a>
+    <form class="form-inline">
+      <% if current_user %>
+             <span><%= current_user.name %></span>
+      <% end %>
+      <div style="padding-left: 10px;">
+        <% if current_user  %>
+            <a class="btn btn-outline-success" href="/signout" role="button"> Sign Out </a>
+        <% else %>
+            <a class="btn btn-outline-success" href="/signup" role="button"> Sign In</a>
+        <% end %>
+      </div>
+    </form>
+    </nav>
   </head>
 
   <body>

@@ -1,0 +1,39 @@
+---
+title:
+  name: "Get Into Teaching"
+
+projects:
+ - api:
+   ref:       "DFE-Digital/get-into-teaching-api"
+   name:      "Get Into Teaching API"
+   environments:
+      - name: "Development"
+        deployment_workflow: "Build and Deploy"
+      - name: "QA"
+        deployment_workflow: "Release to Test"
+      - name: "Production"
+ - app:
+   ref:        "DFE-Digital/get-into-teaching-app"
+   name:      "Get Into Teaching APP"
+   environments:
+      - name: "Development"
+        deployment_workflow: "Build and Deploy"
+ - app:
+   ref:        "DFE-Digital/get-into-teaching-content"
+   name:      "Get Into Teaching Content"
+   environments:
+      - name: "Development"
+        deployment_workflow: "Build and Deploy"
+      - name: "QA"
+        deployment_workflow: "Release to test"
+      - name: "Production"
+
+ - tta:
+   ref:       "DFE-Digital/get-teacher-training-adviser-service"
+   name:      "Teacher Training Adviser"
+   environments:
+      - name: "Development"
+        deployment_workflow: "Build and Deploy"
+      - name: "QA"
+        deployment_workflow: "Release to test"
+      - name: "Production"

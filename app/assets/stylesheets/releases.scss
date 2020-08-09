@@ -1,0 +1,69 @@
+
+$fontsize: 12px;
+$heading_colour: rgba(0,0,255,.1);
+$column_colour:  rgba(255,0,0,0.1);
+
+/* Use the variables */
+.pr_data {
+  font-size: $fontsize;
+}
+
+.pr_data_center {
+  font-size: $fontsize;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pr_no_bullet
+{
+  list-style-type: none;
+}
+
+.pr_container{
+  width: 90%;
+}
+
+.pr_row {
+  height: 200px;
+  width: 90%;
+  margin-bottom: 30px;
+}
+
+.pr_column {
+  height: 200px;
+  background-color: $column_colour;
+  margin: 5px;
+}
+
+.pr_column_error {
+  height: 200px;
+  background-color: red;
+  margin: 5px;
+}
+
+.pr_column_warning {
+  height: 200px;
+  background-color: yellow;
+  margin: 5px;
+}
+
+.pr_column_ok {
+  height: 200px;
+  background-color: yellowgreen;
+  margin: 5px;
+}
+
+.pr_heading {
+  font-size: 16px;
+  background-color: $heading_colour;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 30px;
+}
+
+.pr_bold {
+  font-weight: bold;
+}
+
