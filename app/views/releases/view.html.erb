@@ -1,2 +1,45 @@
-<h1>Releases#view</h1>
-<p>Find me in app/views/releases/view.html.erb</p>
+<%= stylesheet_link_tag "releases", :media => "all" %>
+
+<section>
+<div class="pr_container container-fluid">
+  <% Settings.projects.each do |project| %>
+    <div class="pr_row row">
+      <div class="pr_column col-4">
+          <div class="pr_heading row">
+            <div><%= project.name %></div>
+          </div>
+          <div class="pr_data row">
+              <ul>
+              <% list_pull_requests( current_user,  project.ref ).each_with_index do |pr,i| %>
+                <% if i == 0 %><br><span class="pr_bold">Open Pull Requests</span><% end %>
+                <li> <%= pr['title'] %> </li>
+                <% end %>
+              </ul>
+          </div>
+
+      </div>
+      <% if project.environments %>
+        <% project.environments.each do |environment| %>
+          <% data =  list_workflow_last_run( current_user, project.ref , environment.deployment_workflow ) %>
+          <div class="col-2 <%= map_conclusion_to_div( data ) %>" >
+            <div class="pr_heading row">
+              <%= environment.name %>
+            </div>
+            <%if data%>
+                <div class="pr_heading row"> <%= map_conclusion_to_text( data ) %>   </div>
+                <br>
+                <div class="pr_data_center row"> <%= timestamp_conversion( data['created_at'] )%>   </div>
+                <% if map_conclusion_to_text( data ) == 'Error' %>
+                  <br>
+                  <% data2 = list_workflow_last_successful_run( current_user, project.ref , environment.deployment_workflow )%>
+                  <div class="pr_data_center row"> Last Successful Run </div>
+                  <div class="pr_data_center row"> <%= timestamp_conversion( data2['created_at'] ) %> </div>
+                <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+</section>
