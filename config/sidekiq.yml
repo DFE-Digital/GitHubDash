@@ -1,0 +1,12 @@
+# config/sidekiq.yml
+---
+:verbose: false
+:concurrency: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+:timeout: 30
+:queues:
+  - [low_priority, 1]
+:schedule:
+  FetchGithubDataJob:
+    every: '45s'
+    enabled: true
+    queue: low_priority

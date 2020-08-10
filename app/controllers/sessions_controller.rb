@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
     user = User.find_and_refresh(auth)
     session[:user_id] = user.uid
     redirect_to root_url, :notice => "Signed in!"
- end
+  end
 
  def destroy
      session[:user_id] = nil

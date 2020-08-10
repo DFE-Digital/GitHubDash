@@ -9,4 +9,9 @@ Rails.application.routes.draw do
   get "/auth/:provider/callback" => "sessions#create"
   get "/signout" => "sessions#destroy", :as => :signout
   get "/signup" => redirect("/auth/github"), :as => :signup
+
+  #Sidekiq Dashboard
+  require 'sidekiq/web'
+  require 'sidekiq-scheduler/web'
+  mount Sidekiq::Web => '/sidekiq'
 end
