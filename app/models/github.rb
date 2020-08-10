@@ -7,6 +7,9 @@ class Github
     def self.action_name_to_id( user , p_url , workflow_name)
        key = "#{p_url}#{workflow_name}"
        url = "#{GITHUB_URL}/repos/#{p_url}/actions/workflows?state=active"
+       if !workflow_name
+          return nil
+       end
        j_data = local_request( key, user , url )
        workflow = j_data['workflows'].select {|x| x['name'] == workflow_name }
        return workflow[-1]['id']
@@ -46,20 +49,25 @@ class Github
       req = Net::HTTP::Get.new(uri)
 
       if $redis.exists?( key )
+        print( "Cached Data lookup #{purl}\n")
         return JSON.parse( $redis.get( key ))
       end
 
       if user
+        print( "Authorised User look up of #{purl}\n")
         req[ "Authorization" ] = "token #{user.token}"
         $redis.set( TOKEN_KEY , user.token , "ex": TOKEN_EXPIRES  )
       else
         if $redis.exists?( TOKEN_KEY )
+          print( "Authorised user (cached token) look up of #{purl}\n")
           temp = $redis.get( TOKEN_KEY )
           req[ "Authorization" ] = "token #{temp}"
+        else
+          print( "Anonymous look up of #{purl}\n")
         end
+
       end
 
-      print( "Getting data: #{purl}\n")
       res = Net::HTTP.start(uri.hostname, uri.port , :use_ssl => uri.scheme == 'https' ) {|http|
         http.request(req)
       }
