@@ -1,5 +1,9 @@
 module ReleasesHelper
     DUMMY_DATE = "1964-06-28T00:00:00.000+00:00"
+    def first_line( text)
+        text.lines.first
+    end
+
     def timestamp_conversion( ptimestamp )
             if !ptimestamp
                 return "Unknown"
@@ -39,6 +43,7 @@ module ReleasesHelper
              if !last_run
                 return { "created_at": DUMMY_DATE }
              end
+             print( last_run )
             return last_run
         else
             return { "created_at": DUMMY_DATE }

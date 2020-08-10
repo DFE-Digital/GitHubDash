@@ -1,18 +1,33 @@
 
-$fontsize: 12px;
+$fontsize: 10px;
 $heading_colour: rgba(0,0,255,.1);
 $column_colour:  rgba(255,0,0,0.1);
+$row_height:     200px;
 
 /* Use the variables */
 .pr_data {
   font-size: $fontsize;
+  margin-left: 2px;
 }
 
 .pr_data_center {
-  font-size: $fontsize;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+ul
+{
+  padding-left: 2px;
+}
+
+li
+{
+  width: 98%;
+  margin: 0 2px 0 0;
 }
 
 .pr_no_bullet
@@ -21,35 +36,43 @@ $column_colour:  rgba(255,0,0,0.1);
 }
 
 .pr_container{
-  width: 90%;
+  width: 95%;
+}
+
+.pr_text_row {
+  font-size: $fontsize;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 }
 
 .pr_row {
-  height: 200px;
-  width: 90%;
+  height: $row_height;
+  width: 95%;
   margin-bottom: 30px;
 }
 
 .pr_column {
-  height: 200px;
+  height: $row_height;
   background-color: $column_colour;
   margin: 5px;
 }
 
 .pr_column_error {
-  height: 200px;
+  height: $row_height;
   background-color: red;
   margin: 5px;
 }
 
 .pr_column_warning {
-  height: 200px;
+  height: $row_height;
   background-color: yellow;
   margin: 5px;
 }
 
 .pr_column_ok {
-  height: 200px;
+  height: $row_height;
   background-color: yellowgreen;
   margin: 5px;
 }
@@ -61,6 +84,16 @@ $column_colour:  rgba(255,0,0,0.1);
   justify-content: center;
   align-items: center;
   padding-right: 30px;
+}
+
+.pr_heading_2 {
+  font-size: 12px;
+  background-color: $heading_colour;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 30px;
+  padding-bottom: 10px;
 }
 
 .pr_bold {
