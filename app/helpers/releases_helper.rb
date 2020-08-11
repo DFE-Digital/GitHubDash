@@ -1,7 +1,25 @@
 module ReleasesHelper
     DUMMY_DATE = "1964-06-28T00:00:00.000+00:00"
+
+    def resolve( current_user )
+        if current_user
+            return current_user['credentials']['token']
+        else
+            return nil
+        end
+    end
+
     def first_line( text)
         text.lines.first
+    end
+
+    def user_role( current_user , repo )
+        links = []
+
+        if current_user && Github.is_user_collaborator?( resolve( current_user ), repo )
+            links << "<span> <i class='fa fa-cog'></i></span>"
+        end
+        return links.join(",").html_safe
     end
 
     def timestamp_conversion( ptimestamp )
@@ -13,8 +31,8 @@ module ReleasesHelper
             return time.strftime( "%A #{time.day.ordinalize} at %-I:%M %P" )
     end
 
-    def list_pull_requests( user, repo )
-        pr = Github.get_pull_requests( user, repo )
+    def list_pull_requests( current_user, repo )
+        pr = Github.get_pull_requests( resolve( current_user ), repo )
         if pr
             return pr
         else
@@ -24,8 +42,8 @@ module ReleasesHelper
         return []
     end
 
-    def list_workflows( user, repo )
-        pr = Github.get_workflows( user, repo )['workflows']
+    def list_workflows( current_user, repo )
+        pr = Github.get_workflows( resolve( current_user ), repo )['workflows']
         if pr
             return pr
         else
@@ -33,11 +51,11 @@ module ReleasesHelper
         end
     end
 
-    def list_workflow_last_successful_run( user, repo , name )
+    def list_workflow_last_successful_run( current_user , repo , name )
 
-        id = Github.action_name_to_id( user, repo , name )
+        id = Github.action_name_to_id( resolve( current_user ), repo , name )
 
-        pr = Github.get_workflow_runs( user, repo , id)
+        pr = Github.get_workflow_runs( resolve( current_user ), repo , id)
         if pr
             last_run = pr['workflow_runs'].find {|x| x['status'] == "completed" && x['conclusion'] == 'success'}
              if !last_run
@@ -52,11 +70,11 @@ module ReleasesHelper
          return { "created_at": DUMMY_DATE }
     end
 
-    def list_workflow_last_run( user, repo , name )
+    def list_workflow_last_run(current_user , repo , name )
 
-        id = Github.action_name_to_id( user, repo , name )
+        id = Github.action_name_to_id( resolve( current_user ), repo , name )
 
-        pr = Github.get_workflow_runs( user, repo , id)
+        pr = Github.get_workflow_runs( resolve( current_user ), repo , id)
         if pr
             last_run = pr['workflow_runs'].find {|x| x['run_number'] == pr['total_count'] }
             #print( "Checking run -> " , last_run[ 'run_number'] , "\n" )
