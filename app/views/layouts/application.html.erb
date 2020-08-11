@@ -11,9 +11,13 @@
     <nav class="navbar navbar-light bg-light">
     <a class="navbar-brand" href="/"><%= Settings.title.name %></a>
     <form class="form-inline">
-      <% if current_user %>
-             <span><%= current_user.name %></span>
-      <% end %>
+      <div style="padding-left: 10px;">
+        <% if current_user %>
+            <div style="padding-left: 10px;">
+               <span><%= current_user['info']['name']%></span>
+            </div>
+        <% end %>
+      </div>
       <div style="padding-left: 10px;">
         <% if current_user  %>
             <a class="btn btn-outline-success" href="/signout" role="button"> Sign Out </a>

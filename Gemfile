@@ -20,6 +20,9 @@ gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+# Awsome fonts
+gem "font-awesome-rails"
+
 # Sidekiq and scheduler added
 gem 'sidekiq'
 gem 'sidekiq-scheduler'

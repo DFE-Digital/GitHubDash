@@ -1,3 +1,4 @@
+@import "font-awesome";
 
 $fontsize: 10px;
 $heading_colour: rgba(0,0,255,.1);
@@ -84,6 +85,13 @@ li
   justify-content: center;
   align-items: center;
   padding-right: 30px;
+}
+.pr_icon {
+  font-size: 16px;
+  background-color: $heading_colour;
+  text-align: right;
+  padding-bottom: 10px;
+  padding-right: 5px;
 }
 
 .pr_heading_2 {
