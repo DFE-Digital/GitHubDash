@@ -3,33 +3,43 @@ class User
     @name = ""
     @uid = ""
     @token = ""
-  
+    @provider = ""
+
     def initialize( values)
-        @name = values['name']
-        @uid  = values['uid']
-        @token = values['token']
+        @name     = values['name']
+        @uid      = values['uid']
+        @token    = values['token']
+        @provider = values['provider']
     end
-  
+
+    def provider
+        @provider
+    end
+
     def token
         @token
     end
-  
+
     def uid
         @uid
     end
-  
+
     def name
       @name
     end
-  
+
     def self.find( uid )
-      red = $redis.get( uid )
-      data = JSON.parse( red )
-      return User.new( data )
+      if $redis.exists?( uid )
+        red = $redis.get( uid )
+        data = JSON.parse( red )
+        return User.new( data )
+      else
+        return nil
+      end
     end
-  
+
     def self.find_and_refresh( auth )
-  
+
       if $redis.exists?( auth["uid"] )
         red = $redis.get( auth["uid"] )
         data = JSON.parse( red )

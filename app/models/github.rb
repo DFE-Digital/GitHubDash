@@ -78,6 +78,9 @@ class Github
         return data
       elsif res.kind_of? Net::HTTPUnauthorized
         print "Unauthorised Request (#{user.token})\n"
+        if $redis.exists?( TOKEN_KEY )
+          $redis.del( TOKEN_KEY )
+        end
         return nil
       else
         print res , " (Error return)\n"
