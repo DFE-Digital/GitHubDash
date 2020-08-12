@@ -1,3 +1,4 @@
+require 'rest-client'
 class Github
     GITHUB_URL    =  'https://api.github.com'.freeze
     EXPIRES       = 150
@@ -5,7 +6,12 @@ class Github
     TOKEN_KEY     = "last_token"
 
     def self.is_user_collaborator?( p_token , p_url)
-      url = "#{GITHUB_URL}/#{p_url}/collaborators"
+      url = "#{GITHUB_URL}/repos/#{p_url}/collaborators"
+      return false if !p_token #If we don't have a token we don't have access
+
+      j_data = local_request(  p_token , url )
+      print( "-> #{j_data} \n")
+
       return true
     end
 
@@ -42,54 +48,26 @@ class Github
 
     private
 
-    def self.local_request( p_token , purl )
-      #print "URL = " , purl, "\n"
-      #print "Token = " , user.token , "\n"
 
-      uri = URI(purl)
-      req = Net::HTTP::Get.new(uri)
+    def self.local_request( p_token , purl )
+
       key = purl
 
       if $redis.exists?( key )
-        print( "Cached Data lookup #{purl}\n")
+        print( "Cached Data lookup #{key}\n")
         return JSON.parse( $redis.get( key ))
       end
 
-      if p_token
-        print( "Authorised User look up of #{purl}\n")
-        req[ "Authorization" ] = "token #{p_token}"
-      else
-        if $redis.exists?( TOKEN_KEY )
-          print( "Authorised user (cached token) look up of #{purl}\n")
-          temp = $redis.get( TOKEN_KEY )
-          req[ "Authorization" ] = "token #{temp}"
-        else
-          print( "Anonymous look up of #{purl}\n")
-        end
-
+      begin
+        json = RestClient.get( purl , { :params => { :access_token => p_token }, :accept => :json })
+        $redis.set( key , json )
+        return ( JSON.parse( json ))
+      rescue RestClient::ExceptionWithResponse => e
+        print( JSON.parse(e.response) )
       end
 
-      res = Net::HTTP.start(uri.hostname, uri.port , :use_ssl => uri.scheme == 'https' ) {|http|
-        http.request(req)
-      }
+      return nil
 
-      if res.kind_of? Net::HTTPSuccess
-        data = JSON.parse( res.body )
-        $redis.set( key , res.body ,  "ex": EXPIRES )
-        if( p_token)
-            $redis.set( TOKEN_KEY , p_token, "ex": TOKEN_EXPIRES  )
-        end
-        return data
-      elsif res.kind_of? Net::HTTPUnauthorized
-        print "Unauthorised Request (#{p_token})\n"
-        if $redis.exists?( TOKEN_KEY )
-          $redis.del( TOKEN_KEY )
-        end
-        return nil
-      else
-        print res , " (Error return)\n"
-        return nil
-      end
     end
 
 end

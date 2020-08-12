@@ -16,8 +16,8 @@ module ReleasesHelper
     def user_role( current_user , repo )
         links = []
 
-        if current_user && Github.is_user_collaborator?( resolve( current_user ), repo )
-            links << "<span> <i class='fa fa-cog'></i></span>"
+        if Github.is_user_collaborator?( resolve( current_user ), repo )
+            links << "<span> <i class='fa fa-cog'></i></span>" ## Add a tool icon to indicate release
         end
         return links.join(",").html_safe
     end
