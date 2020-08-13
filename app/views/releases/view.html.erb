@@ -20,7 +20,7 @@
       </div>
       <% if project.environments %>
         <% project.environments.each do |environment| %>
-          <% data =  list_workflow_last_run( current_user , project.ref , environment.deployment_workflow ) %>
+          <% data =  list_workflow_last_run( current_user , project.ref , environment.deployment_workflow , environment.deployment_branch ) %>
           <div class="col-sm-3 <%= map_conclusion_to_div( data ) %>" >
             <div class="row">
               <div class="pr_heading" style="padding-left: 10%; width: 90%; " > <%= environment.name %>  </div>
@@ -34,7 +34,7 @@
                 <div class="pr_text_row row"> <%= data['description'] %> </div>
                 <% if map_conclusion_to_text( data ) == 'Error' %>
                   <br>
-                  <% data2 = list_workflow_last_successful_run(  current_user , project.ref , environment.deployment_workflow )%>
+                  <% data2 = list_workflow_last_successful_run(  current_user , project.ref , environment.deployment_workflow , environment.deployment_branch )%>
                   <div class="pr_text_row row"> <%= first_line( data2['head_commit']['message'] ) %> </div>
                   <div class="pr_data_center row"> Last Successful Run </div>
                   <div class="pr_data_center row"> <%= timestamp_conversion( data2['created_at'] ) %> </div>
