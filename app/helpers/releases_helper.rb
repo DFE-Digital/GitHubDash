@@ -5,13 +5,20 @@ module ReleasesHelper
         text.lines.first
     end
 
-    def user_role( current_user , repo )
+    def user_role( current_user , project , environment )
         links = []
-
-        if current_user && Github.is_user_collaborator?( repo )
-            links << "<span> <i class='fa fa-cog'></i></span>"
+        if current_user && Github.is_user_collaborator?( project.ref )
+            links << "<span> <i class='fas fa-cog'></i></span>"
         end
-        return links.join(",").html_safe
+        id = Github.action_name_to_id( project.ref , environment.deployment_workflow )
+        if id
+             branch =  environment.deployment_branch ? environment.deployment_branch : 'all'
+             links << link_to( workflows_path( {repo: project.ref , branch: branch , id: id } )  ) do
+                          content_tag(:i, "", class: "fas fa-dolly" ).html_safe
+             end
+        end
+
+        return links.join(" ").html_safe
     end
 
     def timestamp_conversion( ptimestamp )
@@ -20,6 +27,7 @@ module ReleasesHelper
             end
 
             time = Time.parse( ptimestamp )
+            return time_ago_in_words(time)
             return time.strftime( "%A #{time.day.ordinalize} at %-I:%M %P" )
     end
 

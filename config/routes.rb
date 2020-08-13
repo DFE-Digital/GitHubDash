@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   get 'sessions/new'
   get 'sessions/create'
   get 'sessions/failure'
+
+  get 'workflows/list/:repo/:id/:branch' , action: :show , controller:  'releases'  , as: 'workflows'
+
   root 'releases#view'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
