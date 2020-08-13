@@ -28,8 +28,12 @@ class Github
       return(  local_request( url ) )
     end
 
-    def self.get_workflow_runs( p_url , workflow_id)
-      url = "#{GITHUB_URL}/repos/#{p_url}/actions/workflows/#{workflow_id}/runs"
+    def self.get_workflow_runs( p_url , workflow_id , branch = nil ) 
+      if branch
+          url = "#{GITHUB_URL}/repos/#{p_url}/actions/workflows/#{workflow_id}/runs?branch=master"
+      else
+          url = "#{GITHUB_URL}/repos/#{p_url}/actions/workflows/#{workflow_id}/runs"
+      end
 
       if !workflow_id
           return {"error" => "No data Found"}
@@ -44,7 +48,6 @@ class Github
     def self.local_request(  purl )
 
       uri = URI(purl)
-      req = Net::HTTP::Get.new(uri)
       key = purl
 
       if $redis.exists?( key )
@@ -52,24 +55,23 @@ class Github
         return JSON.parse( $redis.get( key ))
       end
 
+      req = Net::HTTP::Get.new(uri)
       req[ "Authorization" ] = "token #{GITHUB_TOKEN}"
 
-      res = Net::HTTP.start(uri.hostname, uri.port , :use_ssl => uri.scheme == 'https' ) {|http|
+      res = Net::HTTP.start(uri.hostname, uri.port ,  :use_ssl => uri.scheme == 'https' ) {|http|
         http.request(req)
       }
 
-      if res.kind_of? Net::HTTPSuccess
+      if res.kind_of? Net::HTTPOK 
         print "Authorised Request (#{purl})\n"
         data = JSON.parse( res.body )
         $redis.set( key , res.body ,  "ex": EXPIRES )
         return data
-      elsif res.kind_of? Net::HTTPUnauthorized
-        print "Unauthorised Request (#{purl})\n"
-        return nil
       else
         print res , " (Error return)\n"
         return nil
       end
+
     end
 
 end

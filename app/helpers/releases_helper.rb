@@ -43,11 +43,11 @@ module ReleasesHelper
         end
     end
 
-    def list_workflow_last_successful_run( current_user , repo , name )
+    def list_workflow_last_successful_run( current_user , repo , name , branch = nil )
 
         id = Github.action_name_to_id( repo , name )
 
-        pr = Github.get_workflow_runs(  repo , id)
+        pr = Github.get_workflow_runs(  repo , id , branch )
         if pr
             last_run = pr['workflow_runs'].find {|x| x['status'] == "completed" && x['conclusion'] == 'success'}
              if !last_run
@@ -62,14 +62,13 @@ module ReleasesHelper
          return { "created_at": DUMMY_DATE }
     end
 
-    def list_workflow_last_run(current_user , repo , name )
+    def list_workflow_last_run(current_user , repo , name , branch = nil )
 
         id = Github.action_name_to_id(  repo , name )
 
-        pr = Github.get_workflow_runs( repo , id)
+        pr = Github.get_workflow_runs( repo , id , branch)
         if pr
-            last_run = pr['workflow_runs'].find {|x| x['run_number'] == pr['total_count'] }
-            #print( "Checking run -> " , last_run[ 'run_number'] , "\n" )
+            last_run = pr['workflow_runs'].max_by{ |x| x[' run_number'] }  
             return last_run
         else
             return nil

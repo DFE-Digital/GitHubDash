@@ -9,6 +9,7 @@ projects:
    environments:
       - name: "Development"
         deployment_workflow: "Build and Deploy"
+        deployment_branch:   "master"
       - name: "QA"
         deployment_workflow: "Release to Test"
       - name: "Production"
@@ -18,12 +19,14 @@ projects:
    environments:
       - name: "Development"
         deployment_workflow: "Build and Deploy"
+        deployment_branch:   "master"
  - app:
    ref:        "DFE-Digital/get-into-teaching-content"
    name:      "Get Into Teaching Content"
    environments:
       - name: "Development"
         deployment_workflow: "Build and Deploy"
+        deployment_branch:   "master"
       - name: "QA"
         deployment_workflow: "Release to test"
       - name: "Production"
@@ -34,6 +37,7 @@ projects:
    environments:
       - name: "Development"
         deployment_workflow: "Build and Deploy"
+        deployment_branch:   "master"
       - name: "QA"
         deployment_workflow: "Release to test"
       - name: "Production"
