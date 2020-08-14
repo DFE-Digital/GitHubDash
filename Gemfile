@@ -22,7 +22,7 @@ gem 'redis', '~> 4.0'
 gem "sprockets-rails", git: 'git://github.com/rails/sprockets-rails.git'
 
 # Awsome fonts
-gem "font-awesome-rails"
+gem 'font-awesome-sass', '~> 5.13.0'
 
 # Sidekiq and scheduler added
 gem 'sidekiq'

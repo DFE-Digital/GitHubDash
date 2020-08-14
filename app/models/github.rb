@@ -29,7 +29,7 @@ class Github
     end
 
     def self.get_workflow_runs( p_url , workflow_id , branch = nil ) 
-      if branch
+      if branch && branch != 'all'
           url = "#{GITHUB_URL}/repos/#{p_url}/actions/workflows/#{workflow_id}/runs?branch=master"
       else
           url = "#{GITHUB_URL}/repos/#{p_url}/actions/workflows/#{workflow_id}/runs"

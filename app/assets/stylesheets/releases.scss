@@ -1,5 +1,3 @@
-@import "font-awesome";
-
 $fontsize: 10px;
 $heading_colour: rgba(0,0,255,.1);
 $column_colour:  rgba(255,0,0,0.1);
@@ -24,6 +22,7 @@ ul
 {
   padding-left: 2px;
 }
+
 
 li
 {
@@ -92,6 +91,7 @@ li
   text-align: right;
   padding-bottom: 10px;
   padding-right: 5px;
+  font-family: FontAwesome;
 }
 
 .pr_heading_2 {
