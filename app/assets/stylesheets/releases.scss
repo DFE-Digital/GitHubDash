@@ -13,7 +13,7 @@ $fontsize: 10px;
 }
 
 .pr_row_title {
-  background-color: rgba( 46, 161, 223 ,1 );
+  background-color: rgba( 186, 205, 214 ,1 );
 }
 
 .pr_good {
@@ -37,16 +37,22 @@ $fontsize: 10px;
   padding-right: 30px;
 }
 
-.pr_icon {
-  font-size: 16px;
-  background-color: rgba( 46, 161, 223 ,1 );
-  text-align: right;
-  padding-bottom: 10px;
-  padding-right: 5px;
-  font-family: FontAwesome;
-}
-
 .pr_bold {
   font-weight: bold;
 }
 
+
+#wrapper {
+  display: flex;
+}
+
+#left {
+  flex: 0 0 65%;
+}
+
+#right {
+  flex: 1;
+  text-align: right;
+  font-size: 16px;
+  font-family: FontAwesome;
+}

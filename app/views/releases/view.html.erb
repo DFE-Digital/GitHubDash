@@ -16,7 +16,10 @@
        <% data =  list_workflow_last_run( current_user , project.ref , environment.deployment_workflow , environment.deployment_branch ) %>
        <div class="tile is-3 is-parent">
          <article class="tile is-child box <%= map_conclusion_to_div( data ) %>" >
-           <p class="subtitle"><%= environment.name%></p>
+              <div id="wrapper" >
+                  <div id="left"  ><%= environment.name%> </div>
+                  <div id="right" ><%= user_role( current_user, project  , environment) %> </div>
+              </div>
             <%if data%>
                 <p class="pr_data pr_center"><%= first_line( data['head_commit']['message'] ) %> </p>
                 <p class="pr_data pr_center pr_bold"> <%= timestamp_conversion( data['created_at'] )%> ago    </p>
