@@ -9,9 +9,15 @@ module ReleasesHelper
 
     def user_role( current_user , project , environment )
         links = []
+
+        if !environment.deployment_workflow
+          return " "
+        end
+
         if current_user && Github.is_user_collaborator?( project.ref )
             links << "<span> <i class='fas fa-cog'></i></span>"
         end
+
         id = Github.action_name_to_id( project.ref , environment.deployment_workflow )
         if id
              branch =  environment.deployment_branch ? environment.deployment_branch : 'all'
@@ -105,6 +111,7 @@ module ReleasesHelper
         return "pr_bad"
 
     end
+
     def map_conclusion_to_text(  data )
         status = data ? data['status'] : 'Unknown'
         conclusion = data ? data['conclusion'] : 'Unknown'
