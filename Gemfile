@@ -21,6 +21,10 @@ gem 'redis', '~> 4.0'
 # gem 'bcrypt', '~> 3.1.7'
 gem "sprockets-rails", git: 'git://github.com/rails/sprockets-rails.git'
 
+# Pagy
+gem 'pagy'
+gem "bulma-rails", "~> 0.8.0"
+
 # Awsome fonts
 gem 'font-awesome-sass', '~> 5.13.0'
 
@@ -29,7 +33,7 @@ gem 'sidekiq'
 gem 'sidekiq-scheduler'
 
 #Bootstrap
-gem 'bootstrap' , '~> 4.3.1'
+# gem 'bootstrap' , '~> 4.3.1'
 gem 'jquery-rails'
 
 # Have a YAML config file

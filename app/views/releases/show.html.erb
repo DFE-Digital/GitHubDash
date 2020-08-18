@@ -1,1 +1,32 @@
-"Show some stuff"
+<%= stylesheet_link_tag "releases", :media => "all" %>
+<%= stylesheet_link_tag "tables", :media => "all" %>
+
+<section>
+  <div class="table-wrapper">
+    <table class="fl-table ">
+      <thead>
+	 <tr>
+           <th >SHA</th>
+           <th >Message</th>
+           <th >Author</th>
+           <th >Ran</th>
+	 </tr>
+      </thead>
+    <% @workflows.each do |workflow| %>
+      <tbody>
+	<tr>
+            <td ><%= workflow['head_sha'] %></td>
+            <td ><%= workflow['head_commit']['message'] %></td>
+            <td ><%= workflow['head_commit']['author']['name'] %></td>
+            <td ><%= timestamp_conversion( workflow['created_at'] ) %></td>
+         </tr>
+    <% end %>
+      </tbody>
+      <tfoot>
+	<tr> <td colspan="5" class="text-center">
+            <div> <%= pagy_bulma_nav( @pagy).html_safe %> </div>
+	</td> </tr>
+      </tfoot>
+    </table>
+  </div>
+</section>
