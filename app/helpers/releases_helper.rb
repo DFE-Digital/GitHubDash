@@ -1,4 +1,6 @@
 module ReleasesHelper
+    include Pagy::Frontend
+
     DUMMY_DATE = "1964-06-28T00:00:00.000+00:00"
 
     def first_line( text)
@@ -90,17 +92,17 @@ module ReleasesHelper
         conclusion = data ? data['conclusion'] : 'Unknown'
 
         if  status == 'in_progress'
-            return  "pr_column_warning"
+            return  "pr_caution"
         end
         if status == 'completed' && conclusion == "success"
-            return  "pr_column_ok"
+            return  "pr_good"
         end
 
         if status == 'Unknown' && conclusion == 'Unknown'
             return ""
         end
 
-        return "pr_column_error"
+        return "pr_bad"
 
     end
     def map_conclusion_to_text(  data )

@@ -1,7 +1,4 @@
 $fontsize: 10px;
-$heading_colour: rgba(0,0,255,.1);
-$column_colour:  rgba(255,0,0,0.1);
-$row_height:     200px;
 
 /* Use the variables */
 .pr_data {
@@ -9,99 +6,44 @@ $row_height:     200px;
   margin-left: 2px;
 }
 
-.pr_data_center {
-  padding-left: 10px;
-  padding-right: 10px;
-  font-size: 12px;
+.pr_center {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-ul
-{
-  padding-left: 2px;
+.pr_row_title {
+  background-color: rgba( 46, 161, 223 ,1 );
 }
 
-
-li
-{
-  width: 98%;
-  margin: 0 2px 0 0;
-}
-
-.pr_no_bullet
-{
-  list-style-type: none;
-}
-
-.pr_container{
-  width: 95%;
-}
-
-.pr_text_row {
-  font-size: $fontsize;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-}
-
-.pr_row {
-  height: $row_height;
-  width: 95%;
-  margin-bottom: 30px;
-}
-
-.pr_column {
-  height: $row_height;
-  background-color: $column_colour;
-  margin: 5px;
-}
-
-.pr_column_error {
-  height: $row_height;
-  background-color: red;
-  margin: 5px;
-}
-
-.pr_column_warning {
-  height: $row_height;
-  background-color: yellow;
-  margin: 5px;
-}
-
-.pr_column_ok {
-  height: $row_height;
+.pr_good {
   background-color: yellowgreen;
-  margin: 5px;
+}
+
+.pr_caution {
+  background-color: yellow;
+}
+
+.pr_bad {
+  background-color: red;
 }
 
 .pr_heading {
   font-size: 16px;
-  background-color: $heading_colour;
+  background-color: rgba( 46, 161, 223 ,1 );
   display: flex;
   justify-content: center;
   align-items: center;
   padding-right: 30px;
 }
+
 .pr_icon {
   font-size: 16px;
-  background-color: $heading_colour;
+  background-color: rgba( 46, 161, 223 ,1 );
   text-align: right;
   padding-bottom: 10px;
   padding-right: 5px;
   font-family: FontAwesome;
-}
-
-.pr_heading_2 {
-  font-size: 12px;
-  background-color: $heading_colour;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-right: 30px;
-  padding-bottom: 10px;
 }
 
 .pr_bold {

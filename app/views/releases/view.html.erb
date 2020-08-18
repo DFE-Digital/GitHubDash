@@ -1,52 +1,31 @@
 <%= stylesheet_link_tag "releases", :media => "all" %>
 
-<section>
-<div class="pr_container container-fluid">
-  <% Settings.projects.each do |project| %>
-    <div class="pr_row row">
-      <div class="pr_column col-sm-2">
-          <div class="pr_heading row">
-            <div><%= project.name %></div>
-          </div>
-          <div class="pr_data row">
-              <ul >
+<% Settings.projects.each do |project| %>
+  <section>
+    <div class="tile is-ancestor">
+    <div class="tile is-3 is-parent">
+      <article class="tile is-child box pr_row_title">
+        <p class="subtitle"><%=project.name%></p>
               <% list_pull_requests( current_user , project.ref ).each_with_index do |pr,i| %>
-                <% if i == 0 %><br><span class="pr_bold">Open Pull Requests</span><% end %>
-                <li> <%= pr['title'] %> </li>
-                <% end %>
-              </ul>
-          </div>
-
-      </div>
-      <% if project.environments %>
-        <% project.environments.each do |environment| %>
-          <% data =  list_workflow_last_run( current_user , project.ref , environment.deployment_workflow , environment.deployment_branch ) %>
-          <div class="col-sm-3 <%= map_conclusion_to_div( data ) %>" >
-            <div class="row">
-              <div class="pr_heading" style="padding-left: 30%; width: 70%; " > <%= environment.name %>  </div>
-              <div class="pr_icon"   style="width: 30%; " > <%= user_role( current_user, project  , environment) %> </div>
-            </div>
-            <%if data%>
-                <div class="pr_heading_2 row"> Deployment <%= map_conclusion_to_text( data ) %>   </div>
-                <div class="pr_data_center row"><%= first_line( data['head_commit']['message'] ) %> </div>
-                <div class="pr_data_center row pr_bold"> <%= timestamp_conversion( data['created_at'] )%> ago    </div>
-                <div class="pr_data_center row"> by <%= data['head_commit']['author']['name'] %> </div>
-                <div class="pr_text_row row"> <%= data['description'] %> </div>
-                <% if map_conclusion_to_text( data ) == 'Error' %>
-                  <br>
-                  <% data2 = list_workflow_last_successful_run(  current_user , project.ref , environment.deployment_workflow , environment.deployment_branch )%>
-                  <div class="pr_text_row row"> <%= first_line( data2['head_commit']['message'] ) %> </div>
-                  <div class="pr_data_center row"> Last Successful Run </div>
-                  <div class="pr_data_center row"> <%= timestamp_conversion( data2['created_at'] ) %> </div>
-                  <div class="pr_data_center row"> by <%= data2['head_commit']['author']['name'] %> </div>
-
-
-                <% end %>
-            <% end %>
-          </div>
-        <% end %>
-      <% end %>
+                 <% if i == 0 %><span class="pr_bold pr_data pr_center">Open Pull Requests</span><% end %>
+                 <span class="pr_data pr_center"> <%= pr['title'] %> </span>
+              <% end %>
+      </article>
     </div>
+    <% project.environments.each do |environment| %>
+       <% data =  list_workflow_last_run( current_user , project.ref , environment.deployment_workflow , environment.deployment_branch ) %>
+       <div class="tile is-3 is-parent">
+         <article class="tile is-child box <%= map_conclusion_to_div( data ) %>" >
+           <p class="subtitle"><%= environment.name%></p>
+            <%if data%>
+                <p class="pr_data pr_center"><%= first_line( data['head_commit']['message'] ) %> </p>
+                <p class="pr_data pr_center pr_bold"> <%= timestamp_conversion( data['created_at'] )%> ago    </p>
+                <p class="pr_data pr_center"> by <%= data['head_commit']['author']['name'] %> </p>
+            <%end%>
+         </article>
+       </div>
   <% end %>
-</div>
-</section>
+    </div>
+  </section>
+ <% end %>
+
