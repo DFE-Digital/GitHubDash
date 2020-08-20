@@ -14,6 +14,9 @@ class Github
           return nil
        end
        j_data = local_request( url )
+       if !j_data
+          return nil
+       end
        workflow = j_data['workflows'].select {|x| x['name'] == workflow_name }
        return workflow[-1]['id']
     end

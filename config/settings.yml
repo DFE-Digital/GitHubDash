@@ -10,8 +10,10 @@ projects:
       - name: "Development"
         deployment_workflow: "Build and Deploy"
         deployment_branch:   "master"
-      - name: "QA"
+      - name: "Quality Assurance"
         deployment_workflow: "Release to Test"
+      - name: "User Research Testing"
+        deployment_workflow: "Release to UR"
       - name: "Production"
  - app:
    ref:        "DFE-Digital/get-into-teaching-app"
@@ -27,8 +29,10 @@ projects:
       - name: "Development"
         deployment_workflow: "Build and Deploy"
         deployment_branch:   "master"
-      - name: "QA"
+      - name: "Quality Assurance"
         deployment_workflow: "Release to test"
+      - name: "User Research Testing"
+        deployment_workflow: "Release to User Research (UR)"
       - name: "Production"
 
  - tta:
@@ -38,6 +42,8 @@ projects:
       - name: "Development"
         deployment_workflow: "Build and Deploy"
         deployment_branch:   "master"
-      - name: "QA"
+      - name: "Quality Assurance"
         deployment_workflow: "Release to test"
+      - name: "User Research Testing"
+        deployment_workflow: "Release to User Research (UR)"
       - name: "Production"
