@@ -1,32 +1,48 @@
-<%= stylesheet_link_tag "releases", :media => "all" %>
 <%= stylesheet_link_tag "tables", :media => "all" %>
+
+<style> li { list-style-type: none; } </style>
+
+<section>
+   <div class="table-wrapper">
+      <div style="fl-table" >
+         <canvas id="chart-0" height="300"></canvas>
+      </div>
+   </div>
+</section>
+
+<script type="text/javascript" >
+      var data = <%=@data.to_json.html_safe %> ;
+      var opts = <%=@options.to_json.html_safe %>; 
+      var ctx = document.getElementById("chart-0").getContext("2d");
+      var chart = new Chart(ctx , { type: 'bar' ,  data: data , options: opts } );
+</script>
 
 <section>
   <div class="table-wrapper">
     <table class="fl-table ">
       <thead>
 	 <tr>
-           <th >SHA</th>
+           <th >Run</th>
            <th >Message</th>
            <th >Author</th>
-           <th >Ran</th>
+           <th >Last Ran</th>
+           <th >State</th>
+           <th >Took</th>
 	 </tr>
       </thead>
     <% @workflows.each do |workflow| %>
       <tbody>
 	<tr>
-            <td ><%= workflow['head_sha'] %></td>
-            <td ><%= workflow['head_commit']['message'] %></td>
-            <td ><%= workflow['head_commit']['author']['name'] %></td>
-            <td ><%= timestamp_conversion( workflow['created_at'] ) %></td>
+            <td ><%= workflow[:run_number]  %></td>
+            <td ><%= workflow[:message]  %></td>
+            <td ><%= workflow[:author]   %></td>
+            <td ><%= workflow[:last_run] %></td>
+            <td ><%= workflow[:state]    %></td>
+            <td ><%= workflow[:took]     %></td>
          </tr>
     <% end %>
       </tbody>
-      <tfoot>
-	<tr> <td colspan="5" class="text-center">
-            <div> <%= pagy_bulma_nav( @pagy).html_safe %> </div>
-	</td> </tr>
-      </tfoot>
     </table>
   </div>
+      <%= pagy_bulma_nav( @pagy).html_safe %> 
 </section>

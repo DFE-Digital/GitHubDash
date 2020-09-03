@@ -3,6 +3,14 @@ module ReleasesHelper
 
     DUMMY_DATE = "1964-06-28T00:00:00.000+00:00"
 
+    def timestamp_conversion( ptimestamp )
+            if !ptimestamp
+                return "Unknown"
+            end
+
+            return time_ago_in_words( Time.parse( ptimestamp ))
+    end
+
     def first_line( text)
         text.lines.first
     end
@@ -27,16 +35,6 @@ module ReleasesHelper
         end
 
         return links.join(" ").html_safe
-    end
-
-    def timestamp_conversion( ptimestamp )
-            if !ptimestamp
-                return "Unknown"
-            end
-
-            time = Time.parse( ptimestamp )
-            return time_ago_in_words(time)
-            return time.strftime( "%A #{time.day.ordinalize} at %-I:%M %P" )
     end
 
     def list_pull_requests( current_user, repo )
