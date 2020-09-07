@@ -1,0 +1,27 @@
+<%= stylesheet_link_tag "tables", :media => "all" %>
+
+<section>
+  <div class="table-wrapper">
+    <table class="fl-table ">
+      <thead>
+	 <tr>
+           <th >Tag</th>
+           <th >Name</th>
+           <th >Date</th>
+           <th >Body</th>
+	 </tr>
+      </thead>
+    <% @releases.each do |release| %>
+      <tbody>
+	<tr>
+            <td ><%= release[:tag]    %></td>
+            <td ><%= release[:name]    %></td>
+            <td ><%= release[:created_at]    %></td>
+            <td ><%= release[:body]    %></td>
+         </tr>
+    <% end %>
+      </tbody>
+    </table>
+  </div>
+      <%= pagy_bulma_nav( @pagy).html_safe %> 
+</section>

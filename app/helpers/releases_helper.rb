@@ -22,8 +22,10 @@ module ReleasesHelper
           return " "
         end
 
-        if current_user && Github.is_user_collaborator?( project.ref )
-            links << "<span> <i class='fas fa-cog'></i></span>"
+        if environment.release_prefix && current_user && Github.is_user_collaborator?( project.ref , current_user  )
+          links << link_to( releases_path( {repo: project.ref , prefix: environment.release_prefix } )  ) do
+                          content_tag(:i, "", class: "fas fa-cog" ).html_safe
+          end
         end
 
         id = Github.action_name_to_id( project.ref , environment.deployment_workflow )

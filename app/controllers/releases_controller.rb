@@ -23,6 +23,25 @@ class ReleasesController < ApplicationController
             return Time.parse( ptimestamp )
   end
 
+  def release ()
+    print( "in Release" )
+    formatted_data = []
+    unformatted_data =  Github.get_releases(  params[:repo]  )
+
+    unformatted_data.each do | release  |
+        xlast_time = timestamp_conversion( release['created_at'] ) 
+        element = { body:        release[ 'body' ],
+                    author:      release['author']['login'] ,
+                    name:        release['name'],
+                    tag:         release['tag_name'],
+                    created_at:  xlast_time
+                  }
+        formatted_data << element
+    end
+
+    @pagy , @releases = pagy_array( formatted_data , page: params[:page] , items: 15 ) 
+  end
+
   def show () 
      formatted_data = []
      failed_runs = []

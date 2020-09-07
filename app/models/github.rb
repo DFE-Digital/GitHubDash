@@ -3,9 +3,27 @@ class Github
     EXPIRES       = 150
     GITHUB_TOKEN  = ENV['GITHUB_TOKEN']
 
-    def self.is_user_collaborator?( p_url)
-      url = "#{GITHUB_URL}/#{p_url}/collaborators"
-      return true
+    def self.is_user_collaborator?( p_url , current_user )
+      url = "#{GITHUB_URL}/repos/#{p_url}/collaborators/#{current_user['extra']['raw_info']['login']}/permission"
+      data = local_request( url )
+      if data['permission'] == 'admin'
+           return true
+      else
+           return false
+      end
+    end
+
+    def self.tag_to_commit( p_url , tag )
+       url = "#{GITHUB_URL}/repos/#{p_url}/tags"
+       if !tag
+          return nil
+       end
+       j_data = local_request( url )
+       if !j_data
+          return nil
+       end
+       commit = j_data.select {|x| x['name'] == tag }
+       return commit['url']
     end
 
     def self.action_name_to_id( p_url , workflow_name)
@@ -23,6 +41,11 @@ class Github
 
     def self.get_pull_requests( p_url )
       url = "#{GITHUB_URL}/repos/#{p_url}/pulls?state=Open"
+      return(  local_request( url ) )
+    end
+
+    def self.get_releases( p_url )
+      url = "#{GITHUB_URL}/repos/#{p_url}/releases"
       return(  local_request( url ) )
     end
 
@@ -71,7 +94,7 @@ class Github
         $redis.set( key , res.body ,  "ex": EXPIRES )
         return data
       else
-        print res , " (Error return)\n"
+        print( "Error  #{res}  Data lookup #{purl}\n")
         return nil
       end
 
