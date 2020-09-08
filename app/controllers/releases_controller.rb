@@ -59,6 +59,7 @@ class ReleasesController < ApplicationController
 
         element = { message:   workflow['head_commit']['message'] ,
                     author:    workflow['head_commit']['author']['name'] ,
+                    sha:       workflow['head_sha'] ,
                     last_run:  time_ago_in_words( xlast_time ),
                     state:     workflow['conclusion'] ,
                     run_number: workflow['run_number'] ,

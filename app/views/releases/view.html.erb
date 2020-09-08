@@ -22,6 +22,7 @@
               </div>
             <%if data%>
                 <p class="pr_data pr_center"><%= first_line( data['head_commit']['message'] ) %> </p>
+                <p class="pr_data pr_center pr_bold"> <%= data['head_sha'] %>  </p>
                 <p class="pr_data pr_center pr_bold"> <%= timestamp_conversion( data['created_at'] )%> ago    </p>
                 <p class="pr_data pr_center"> by <%= data['head_commit']['author']['name'] %> </p>
             <%end%>
