@@ -13,7 +13,7 @@
       </thead>
     <% @releases.each do |release| %>
       <tbody>
-	<tr>
+        <tr class='clickable-row' data-href='<%= release[:link] %>' >
             <td ><%= release[:tag]    %></td>
             <td ><%= release[:name]    %></td>
             <td ><%= release[:created_at]    %></td>
@@ -25,3 +25,11 @@
   </div>
       <%= pagy_bulma_nav( @pagy).html_safe %> 
 </section>
+
+<script>
+  jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+</script>

@@ -32,7 +32,7 @@
       </thead>
     <% @workflows.each do |workflow| %>
       <tbody>
-	<tr>
+        <tr class='clickable-row' data-href='<%= workflow[:link] %>' >
             <td ><%= workflow[:run_number]  %></td>
             <td ><%= workflow[:message]  %></td>
             <td ><%= workflow[:author]   %></td>
@@ -46,3 +46,12 @@
   </div>
       <%= pagy_bulma_nav( @pagy).html_safe %> 
 </section>
+
+<script>
+  jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+</script>
+

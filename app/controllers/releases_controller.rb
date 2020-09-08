@@ -33,6 +33,7 @@ class ReleasesController < ApplicationController
         element = { body:        release[ 'body' ],
                     author:      release['author']['login'] ,
                     name:        release['name'],
+                    link:        release['html_url'],
                     tag:         release['tag_name'],
                     created_at:  xlast_time
                   }
@@ -62,6 +63,7 @@ class ReleasesController < ApplicationController
                     sha:       workflow['head_sha'] ,
                     last_run:  time_ago_in_words( xlast_time ),
                     state:     workflow['conclusion'] ,
+                    link:      workflow['html_url'],
                     run_number: workflow['run_number'] ,
                     took:      xtook   }
         if xtook > xmax 

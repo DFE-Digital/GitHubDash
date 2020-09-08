@@ -44,6 +44,10 @@ h2{
     background-color: white;
 }
 
+.fl-table tr:hover {
+   background-color: #ffff99;
+}
+
 .fl-table td, .fl-table th {
     text-align: center;
     padding: 8px;
