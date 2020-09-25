@@ -17,13 +17,8 @@ projects:
         deployment_workflow: "Release to UR"
         release_prefix:  "UR"
       - name: "Production"
- - app:
-   ref:        "DFE-Digital/get-into-teaching-app"
-   name:      "Get Into Teaching APP"
-   environments:
-      - name: "Development"
-        deployment_workflow: "Build and Deploy"
-        deployment_branch:   "master"
+        deployment_workflow: "Release to Production"
+        release_prefix:  "UR"
  - app:
    ref:        "DFE-Digital/get-into-teaching-content"
    name:      "Get Into Teaching Content"
@@ -38,6 +33,8 @@ projects:
         deployment_workflow: "Release to User Research (UR)"
         release_prefix:  "UR"
       - name: "Production"
+        deployment_workflow: "Release to Production"
+        release_prefix:  "UR"
 
  - tta:
    ref:       "DFE-Digital/get-teacher-training-adviser-service"
@@ -53,3 +50,19 @@ projects:
         deployment_workflow: "Release to User Research (UR)"
         release_prefix:  "UR"
       - name: "Production"
+        deployment_workflow: "Release to Production"
+        release_prefix:  "UR"
+ - app:
+   ref:        "DFE-Digital/get-into-teaching-app"
+   name:      "Get Into Teaching APP"
+   environments:
+      - name: "Development"
+        deployment_workflow: "Build and Deploy"
+        deployment_branch:   "master"
+ - test:
+   ref:        "DFE-Digital/get-into-teaching-frontend-tests"
+   name:      "Get Into Teaching Testing"
+   environments:
+      - name: "Cypress Frontend Tests"
+        deployment_workflow: "Cypress Testing against Test Environment"
+        deployment_branch:   "master"
