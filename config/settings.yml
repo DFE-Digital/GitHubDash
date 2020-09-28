@@ -19,7 +19,7 @@ projects:
       - name: "Production"
         deployment_workflow: "Release to Production"
         release_prefix:  "UR"
- - app:
+ - con:
    ref:        "DFE-Digital/get-into-teaching-content"
    name:      "Get Into Teaching Content"
    environments:
