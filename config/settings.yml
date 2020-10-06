@@ -10,6 +10,8 @@ projects:
       - name: "Development Space"
         deployment_workflow: "Build and Deploy"
         deployment_branch:   "master"
+        releases:
+             allowed: false
       - name: "Test Space"
         deployment_workflow: "Release to Test"
         graph: 
@@ -24,6 +26,8 @@ projects:
       - name: "Development"
         deployment_workflow: "Build and Deploy"
         deployment_branch:   "master"
+        releases:
+             allowed: false
       - name: "Quality Assurance"
         deployment_workflow: "Release to test"
       - name: "User Research Testing"
@@ -38,6 +42,8 @@ projects:
       - name: "Development"
         deployment_workflow: "Build and Deploy"
         deployment_branch:   "master"
+        releases:
+             allowed: false
       - name: "Quality Assurance"
         deployment_workflow: "Release to test"
       - name: "User Research Testing"
@@ -52,6 +58,8 @@ projects:
       - name: "Development"
         deployment_workflow: "Build and Deploy"
         deployment_branch:   "master"
+        releases:
+             allowed: false
 
  - test:
    ref:        "DFE-Digital/get-into-teaching-frontend-tests"
@@ -60,3 +68,5 @@ projects:
       - name: "Cypress Frontend Tests"
         deployment_workflow: "Cypress Testing against Test Environment"
         deployment_branch:   "master"
+        releases:
+             allowed: false

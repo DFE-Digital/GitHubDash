@@ -1,3 +1,23 @@
+class String
+  def to_bool
+    return true   if self == true   || self =~ (/(true|t|yes|y|1)$/i)
+    return false  if self == false  || self.blank? || self =~ (/(false|f|no|n|0)$/i)
+    raise ArgumentError.new("invalid value for Boolean: \"#{self}\"")
+  end
+end
+
+class FalseClass
+  def to_bool
+    return self
+  end
+end
+
+class NilClass
+  def to_bool
+    return true
+  end
+end
+
 module ReleasesHelper
     include Pagy::Frontend
 
@@ -22,8 +42,12 @@ module ReleasesHelper
           return " "
         end
 
-        if environment.release_prefix && current_user && Github.is_user_collaborator?( project.ref , current_user  )
-          links << link_to( releases_path( {repo: project.ref , prefix: environment.release_prefix } )  ) do
+        config = Settings.projects.select {|x| x['ref'] == project.ref  }.first
+        env_config = config.environments.select  {|x| x['deployment_workflow'] == environment.deployment_workflow }.first
+        releases  = env_config&.releases&.allowed.to_bool 
+
+        if releases && current_user && Github.is_user_collaborator?( project.ref , current_user  )
+          links << link_to( releases_path( {repo: project.ref , workflow: environment.deployment_workflow } )  ) do
                           content_tag(:i, "", class: "fas fa-cog" ).html_safe
           end
         end

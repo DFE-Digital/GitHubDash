@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   get 'workflows/list/:repo/:workflow/:id/:branch' , action: :show , controller:  'releases'  , as: 'workflows'
 
-  get 'releases/list/:repo/:prefix/' , action: :release , controller:  'releases'  , as: 'releases'
+  get 'releases/list/:repo/:workflow/'             , action: :release , controller:  'releases'  , as: 'releases'
 
   root 'releases#view'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
