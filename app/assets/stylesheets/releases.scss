@@ -1,6 +1,12 @@
 $fontsize: 10px;
 
 /* Use the variables */
+.grimm_header {
+  font-size: 16px;
+  color: rgba( 46, 161, 223 ,1 );
+  text-align: center;
+}
+
 .pr_data {
   font-size: $fontsize;
   margin-left: 2px;

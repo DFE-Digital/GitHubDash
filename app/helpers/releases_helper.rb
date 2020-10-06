@@ -32,7 +32,7 @@ module ReleasesHelper
         if id
              branch =  environment.deployment_branch ? environment.deployment_branch : 'all'
              links << link_to( workflows_path( {repo: project.ref , workflow: environment.deployment_workflow ,  branch: branch , id: id } )  ) do
-                          content_tag(:i, "", class: "fas fa-dolly" ).html_safe
+                          content_tag(:i, "", class: "fas fa-running" ).html_safe
              end
         end
 
