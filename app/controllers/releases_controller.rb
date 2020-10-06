@@ -52,7 +52,15 @@ class ReleasesController < ApplicationController
      xmax = 0
      unformatted_data =  Github.get_workflow_runs(  params[:repo] , params[:id]  , params[:branch] )['workflow_runs']
 
-   
+     config = Settings.projects.select {|x| x['ref'] == params[:repo] }.first
+     env_config = config.environments.select  {|x| x['deployment_workflow'] == params[:workflow] }.first
+     _max_time = env_config&.graph&.max_time 
+     if _max_time
+       max_time = _max_time
+     else
+       max_time = xmin
+     end
+
      unformatted_data.each do | workflow |
 
         xlast_time = timestamp_conversion( workflow['created_at'] ) 
@@ -67,7 +75,11 @@ class ReleasesController < ApplicationController
                     run_number: workflow['run_number'] ,
                     took:      xtook   }
         if xtook > xmax 
-          xmax = xtook 
+          if xtook < max_time 
+             xmax = xtook 
+          else
+             xmax = max_time 
+          end
         end
 
         if xtook < xmin 

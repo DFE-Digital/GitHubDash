@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'sessions/create'
   get 'sessions/failure'
 
-  get 'workflows/list/:repo/:id/:branch' , action: :show , controller:  'releases'  , as: 'workflows'
+  get 'workflows/list/:repo/:workflow/:id/:branch' , action: :show , controller:  'releases'  , as: 'workflows'
 
   get 'releases/list/:repo/:prefix/' , action: :release , controller:  'releases'  , as: 'releases'
 

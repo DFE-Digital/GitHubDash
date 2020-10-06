@@ -7,18 +7,16 @@ projects:
    ref:       "DFE-Digital/get-into-teaching-api"
    name:      "Get Into Teaching API"
    environments:
-      - name: "Development"
+      - name: "Development Space"
         deployment_workflow: "Build and Deploy"
         deployment_branch:   "master"
-      - name: "Quality Assurance"
+      - name: "Test Space"
         deployment_workflow: "Release to Test"
-        release_prefix:  "QA"
-      - name: "User Research Testing"
-        deployment_workflow: "Release to UR"
-        release_prefix:  "UR"
-      - name: "Production"
+        graph: 
+           max_time: 2000
+      - name: "Production Space"
         deployment_workflow: "Release to Production"
-        release_prefix:  "UR"
+
  - con:
    ref:        "DFE-Digital/get-into-teaching-content"
    name:      "Get Into Teaching Content"
@@ -28,13 +26,10 @@ projects:
         deployment_branch:   "master"
       - name: "Quality Assurance"
         deployment_workflow: "Release to test"
-        release_prefix:  "QA"
       - name: "User Research Testing"
         deployment_workflow: "Release to User Research (UR)"
-        release_prefix:  "UR"
       - name: "Production"
         deployment_workflow: "Release to Production"
-        release_prefix:  "UR"
 
  - tta:
    ref:       "DFE-Digital/get-teacher-training-adviser-service"
@@ -45,13 +40,11 @@ projects:
         deployment_branch:   "master"
       - name: "Quality Assurance"
         deployment_workflow: "Release to test"
-        release_prefix:  "QA"
       - name: "User Research Testing"
         deployment_workflow: "Release to User Research (UR)"
-        release_prefix:  "UR"
       - name: "Production"
         deployment_workflow: "Release to Production"
-        release_prefix:  "UR"
+
  - app:
    ref:        "DFE-Digital/get-into-teaching-app"
    name:      "Get Into Teaching APP"
@@ -59,6 +52,7 @@ projects:
       - name: "Development"
         deployment_workflow: "Build and Deploy"
         deployment_branch:   "master"
+
  - test:
    ref:        "DFE-Digital/get-into-teaching-frontend-tests"
    name:      "Get Into Teaching Testing"

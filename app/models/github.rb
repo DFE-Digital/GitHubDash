@@ -35,7 +35,8 @@ class Github
        if !j_data
           return nil
        end
-       workflow = j_data['workflows'].select {|x| x['name'] == workflow_name }
+       unordered  = j_data['workflows'].select {|x| x['name'] == workflow_name }
+       workflow   = unordered.sort_by{ |x| Time.parse(x['created_at']) }.reverse
        return workflow[-1]['id']
     end
 
