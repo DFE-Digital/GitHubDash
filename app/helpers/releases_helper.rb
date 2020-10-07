@@ -120,19 +120,20 @@ module ReleasesHelper
     def map_conclusion_to_div(  data )
         status = data ? data['status'] : 'Unknown'
         conclusion = data ? data['conclusion'] : 'Unknown'
+        size_class = "is-12"
 
         if  status == 'in_progress'
-            return  "pr_caution"
+            return  "#{size_class} pr_caution"
         end
         if status == 'completed' && conclusion == "success"
-            return  "pr_good"
+            return  "#{size_class} pr_good"
         end
 
         if status == 'Unknown' && conclusion == 'Unknown'
-            return ""
+            return  "#{size_class}"
         end
 
-        return "pr_bad"
+        return  "#{size_class} pr_bad"
 
     end
 

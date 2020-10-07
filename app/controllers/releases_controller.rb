@@ -24,7 +24,6 @@ class ReleasesController < ApplicationController
   end
 
   def release ()
-    print( "in Release" )
     formatted_data = []
     unformatted_data =  Github.get_releases(  params[:repo]  )
 
