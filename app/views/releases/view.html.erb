@@ -3,9 +3,7 @@
 <% Settings.projects.each do |project| %>
   <section>
     <div class="tile is-ancestor">
-       <div class="tile is-3 is-parent">
-           <%= render partial:  "medium_title_box" , locals: { project: project } %>
-       </div>
+       <%= render partial:  "medium_title_box" , locals: { project: project } %>
        <% project.environments.each do |environment| %>
            <%= render partial:  "medium_data_box" , locals: { project: project , environment: environment } %>
        <% end %>
