@@ -3,32 +3,12 @@
 <% Settings.projects.each do |project| %>
   <section>
     <div class="tile is-ancestor">
-    <div class="tile is-3 is-parent">
-      <article class="tile is-child box pr_row_title">
-        <p class="subtitle"><%=project.name%></p>
-              <% list_pull_requests( current_user , project.ref ).each_with_index do |pr,i| %>
-                 <% if i == 0 %><span class="pr_bold pr_data pr_center">Open Pull Requests</span><% end %>
-                 <span class="pr_data pr_center"> <%= pr['title'] %> </span>
-              <% end %>
-      </article>
-    </div>
-    <% project.environments.each do |environment| %>
-       <% data =  list_workflow_last_run( current_user , project.ref , environment.deployment_workflow , environment.deployment_branch ) %>
        <div class="tile is-3 is-parent">
-         <article class="tile is-child box <%= map_conclusion_to_div( data ) %>" >
-              <div id="wrapper" >
-                  <div id="left"  ><%= environment.name%> </div>
-                  <div id="right" ><%= user_role( current_user, project  , environment) %> </div>
-              </div>
-            <%if data%>
-                <p class="pr_data pr_center"><%= first_line( data['head_commit']['message'] ) %> </p>
-                <p class="pr_data pr_center pr_bold"> <%= data['head_sha'] %>  </p>
-                <p class="pr_data pr_center pr_bold"> <%= timestamp_conversion( data['created_at'] )%> ago    </p>
-                <p class="pr_data pr_center"> by <%= data['head_commit']['author']['name'] %> </p>
-            <%end%>
-         </article>
+           <%= render partial:  "medium_title_box" , locals: { project: project } %>
        </div>
-  <% end %>
+       <% project.environments.each do |environment| %>
+           <%= render partial:  "medium_data_box" , locals: { project: project , environment: environment } %>
+       <% end %>
     </div>
   </section>
  <% end %>

@@ -1,0 +1,7 @@
+    <article class="tile is-child box pr_row_title">
+        <p class="subtitle"><%=project.name%></p>
+        <% list_pull_requests( current_user , project.ref ).each_with_index do |pr,i| %>
+           <% if i == 0 %><span class="pr_bold pr_data pr_center">Open Pull Requests</span><% end %>
+               <span class="pr_data pr_center"> <%= pr['title'] %> </span>
+           <% end %>
+    </article>
