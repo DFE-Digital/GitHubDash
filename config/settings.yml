@@ -65,7 +65,7 @@ projects:
    ref:        "DFE-Digital/get-into-teaching-frontend-tests"
    name:      "Get Into Teaching Testing"
    environments:
-      - name: "Cypress Frontend Tests"
+      - name: "Cypress Tests"
         deployment_workflow: "Cypress Testing against Test Environment"
         deployment_branch:   "master"
         releases:

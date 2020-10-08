@@ -35,7 +35,7 @@ $fontsize: 10px;
 }
 
 .pr_heading {
-  font-size: 16px;
+  font-size: 14px;
   background-color: rgba( 46, 161, 223 ,1 );
   display: flex;
   justify-content: center;
@@ -53,12 +53,14 @@ $fontsize: 10px;
 }
 
 #left {
-  flex: 0 0 65%;
+  font-weight: bold;
+  flex: 0 0 70%;
+  font-size: 10px;
 }
 
 #right {
   flex: 1;
   text-align: right;
-  font-size: 16px;
+  font-size: 12px;
   font-family: FontAwesome;
 }
