@@ -30,7 +30,7 @@ projects:
              allowed: false
       - name: "Quality Assurance"
         deployment_workflow: "Release to test"
-      - name: "User Research Testing"
+      - name: "UR Testing"
         deployment_workflow: "Release to User Research (UR)"
       - name: "Production"
         deployment_workflow: "Release to Production"
@@ -46,7 +46,7 @@ projects:
              allowed: false
       - name: "Quality Assurance"
         deployment_workflow: "Release to test"
-      - name: "User Research Testing"
+      - name: "UR Testing"
         deployment_workflow: "Release to User Research (UR)"
       - name: "Production"
         deployment_workflow: "Release to Production"
