@@ -56,21 +56,21 @@ jobs:
       - name: Build and push to Docker Hub
         if: github.ref == 'refs/heads/master'
         uses: docker/build-push-action@v2
-        tags: |
-                 ${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short }}
         with:
           builder: ${{ steps.buildx.outputs.name }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
           push: true
+          tags: |
+                 ${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short }}
 
       - name: Build and push to Docker Hub
         if: github.ref != 'refs/heads/master'
         uses: docker/build-push-action@v2
-        tags: |
-                 ${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short }}
         with:
           builder: ${{ steps.buildx.outputs.name }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
           push: false
+          tags: |
+                 ${{env.DOCKERHUB_REPOSITORY}}:sha-${{ steps.sha.outputs.short }}
