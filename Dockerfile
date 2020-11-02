@@ -26,4 +26,4 @@ RUN bundle install --jobs=$(nproc --all) && \
 COPY package.json yarn.lock ./
 RUN yarn install && yarn cache clean
 
-CMD ["/app/bin/rails" , "server"  ]
+CMD ["/app/bin/rails" , "server" , "--binding" , "0.0.0.0" , "--port" ,"3000"  ]
