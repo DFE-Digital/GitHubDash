@@ -10,7 +10,6 @@ EXPOSE 3000
 
 # Install bundler
 RUN gem install bundler --version=2.1.4
-RUN gem install rails
 
 # Install Gems removing artifacts
 COPY . /app
